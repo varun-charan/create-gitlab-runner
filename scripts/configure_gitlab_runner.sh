@@ -75,7 +75,6 @@ gitlab-runner register << EOF
 https://gitlab.us.com/
 ${GITLAB_RUNNER_TOKEN}
 ${GITLAB_RUNNER_NAME}
-sepp
 docker
 coreos/apache
 EOF
