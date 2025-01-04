@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\e[38;5;126m #############################################\e[0m"
-echo -e "\e[38;5;126m     START SETUP SEPP GITLAB RUNNER SCRIPT    \e[0m"
+echo -e "\e[38;5;126m     START SETUP  GITLAB RUNNER SCRIPT    \e[0m"
 echo -e "\e[38;5;126m #############################################\e[0m"
 
 ##################################################################################################################
@@ -152,7 +152,7 @@ if [ $? -ne 0 ]; then
     echo -e "\e[38;5;196m Terraform init in /etc/terraform directory FAILED.\e[0m"
     echo -e "\e[38;5;196m Step 4. Run Terraform commands under /etc/terraform to provision Openstack resources.... FAILED!!!\e[0m"
     echo
-    echo -e "\e[38;5;20m####################### END: setup-sepp-gitlab-runner.sh #############################\e[0m"
+    echo -e "\e[38;5;20m####################### END: setup-gitlab-runner.sh #############################\e[0m"
     exit -1
 fi
 
@@ -163,7 +163,7 @@ if [ $? -ne 0 ]; then
     echo -e "\e[38;5;196m Terraform apply in /etc/terraform directory FAILED.\e[0m"
     echo -e "\e[38;5;196m Step 4. Run Terraform commands under /etc/terraform to provision Openstack resources.... FAILED!!!\e[0m"
     echo
-    echo -e "\e[38;5;20m####################### END: setup-sepp-gitlab-runner.sh #############################\e[0m"
+    echo -e "\e[38;5;20m####################### END: setup-gitlab-runner.sh #############################\e[0m"
     exit -1
 fi
 
@@ -200,27 +200,27 @@ GITLAB_RUNNER_VM_IP=$(nova list | grep "${GITLAB_RUNNER_VM_NAME}" | cut -d'=' -f
 
 sshpass -p ${SSHPASS} scp -o StrictHostKeyChecking=no config/configuration.env                             cloud-user@${GITLAB_RUNNER_VM_IP}:~/
 sshpass -p ${SSHPASS} scp -o StrictHostKeyChecking=no scripts/configure_gitlab_runner.sh                   cloud-user@${GITLAB_RUNNER_VM_IP}:~/
-sshpass -p ${SSHPASS} scp -o StrictHostKeyChecking=no scripts/allow_access_to_ocsepp_docker_registry.sh    cloud-user@${GITLAB_RUNNER_VM_IP}:~/
+sshpass -p ${SSHPASS} scp -o StrictHostKeyChecking=no scripts/allow_access_to_docker_registry.sh    cloud-user@${GITLAB_RUNNER_VM_IP}:~/
 sshpass -p ${SSHPASS} scp -o StrictHostKeyChecking=no scripts/setup_anchore_scan_environment.sh            cloud-user@${GITLAB_RUNNER_VM_IP}:~/
 
 
 sshpass -p ${SSHPASS} ssh -o StrictHostKeyChecking=no cloud-user@${GITLAB_RUNNER_VM_IP} "sudo ~/configure_gitlab_runner.sh"
 if [ $? -ne 0 ]; then
-    echo -e "\e[38;5;196m configure-sepp-gitlab-runner.sh script FAILED.\e[0m"
+    echo -e "\e[38;5;196m configure-gitlab-runner.sh script FAILED.\e[0m"
     echo -e "\e[38;5;196m Step 5. Configure Gitlab Runner Host.... FAILED!!!\e[0m"
     echo
-    echo -e "\e[38;5;20m####################### END: setup-sepp-gitlab-runner.sh #############################\e[0m"
+    echo -e "\e[38;5;20m####################### END: setup-gitlab-runner.sh #############################\e[0m"
     exit -1
 else
     echo "Configured Gitlab Runner successfully!"
 fi
 
-sshpass -p ${SSHPASS} ssh -o StrictHostKeyChecking=no cloud-user@${GITLAB_RUNNER_VM_IP} "sudo ~/allow_access_to_ocsepp_docker_registry.sh"
+sshpass -p ${SSHPASS} ssh -o StrictHostKeyChecking=no cloud-user@${GITLAB_RUNNER_VM_IP} "sudo ~/allow_access_to_docker_registry.sh"
 if [ $? -ne 0 ]; then
-    echo -e "\e[38;5;196m allow_access_to_ocsepp_docker_registry.sh script FAILED.\e[0m"
+    echo -e "\e[38;5;196m allow_access_to_docker_registry.sh script FAILED.\e[0m"
     echo -e "\e[38;5;196m Step 5. Configure Gitlab Runner Host.... FAILED!!!\e[0m"
     echo
-    echo -e "\e[38;5;20m####################### END: setup-sepp-gitlab-runner.sh #############################\e[0m"
+    echo -e "\e[38;5;20m####################### END: setup-gitlab-runner.sh #############################\e[0m"
     exit -1
 else
     echo "Added access to OCSEPP Docker Registry to Gitlab Runner successfully!"
@@ -231,7 +231,7 @@ if [ $? -ne 0 ]; then
     echo -e "\e[38;5;196m setup_anchore_scan_environment.sh script FAILED.\e[0m"
     echo -e "\e[38;5;196m Step 5. Configure Gitlab Runner Host.... FAILED!!!\e[0m"
     echo
-    echo -e "\e[38;5;20m####################### END: setup-sepp-gitlab-runner.sh #############################\e[0m"
+    echo -e "\e[38;5;20m####################### END: setup-gitlab-runner.sh #############################\e[0m"
     exit -1
 else
     echo "Configured Gitlab Runner successfully!"
@@ -261,7 +261,7 @@ echo -e "\e[38;5;20m############################################################
 
 echo
 echo -e "\e[38;5;126m #############################################\e[0m"
-echo -e "\e[38;5;126m      END SETUP SEPP GITLAB RUNNER SCRIPT     \e[0m"
+echo -e "\e[38;5;126m      END SETUP  GITLAB RUNNER SCRIPT     \e[0m"
 echo -e "\e[38;5;126m #############################################\e[0m"
 
 
